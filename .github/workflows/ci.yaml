@@ -47,6 +47,6 @@ jobs:
           context: .
           file: ./Dockerfile
           tags: |
-            ghcr.io/${{ github.actor | lower }}/hono-server:latest
-            ghcr.io/${{ github.actor | lower }}/hono-server:${{ github.sha }}
+            ghcr.io/${{ lower(github.actor) }}/hono-server:latest
+            ghcr.io/${{ lower(github.actor) }}/hono-server:${{ github.sha }}
           push: true
