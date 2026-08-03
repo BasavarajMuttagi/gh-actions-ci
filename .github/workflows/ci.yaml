@@ -38,7 +38,8 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            console.log(process.env.GITHUB_ACTOR.toLowerCase());
+            const lowercase = process.env.GITHUB_ACTOR.toLowerCase();
+            core.setOutput('result', lowercase);
 
       - name: Build and push Docker image to GHCR
         uses: docker/build-push-action@v6
@@ -46,6 +47,6 @@ jobs:
           context: .
           file: ./Dockerfile
           tags: |
-            ghcr.io/${{ steps.uname.outputs.result }}/hono-server:latest
-            ghcr.io/${{ steps.uname.outputs.result }}/hono-server:${{ github.sha }}
+            ghcr.io/${{ github.actor | lower }}/hono-server:latest
+            ghcr.io/${{ github.actor | lower }}/hono-server:${{ github.sha }}
           push: true
